@@ -69,6 +69,7 @@ class MyModelView(sqla.ModelView):
         """
         Override builtin _handle_view in order to redirect users when a view is not accessible.
         """
+        print(type(self.category))
         if not self.is_accessible():
             if current_user.is_authenticated:
                 # permission denied
@@ -77,13 +78,17 @@ class MyModelView(sqla.ModelView):
                 # login
                 return redirect(url_for('security.login', next=request.url))
 
+    def _add_view_to_menu(self, view):
+        
+        self._add_menu_item(MenuView(view.name, view), view.category)
+
 
     # can_edit = True
     edit_modal = True
     create_modal = True    
     can_export = True
     can_view_details = True
-    details_modal = True
+    details_modal = False
 
 class UserView(MyModelView):
     column_editable_list = ['email', 'first_name', 'last_name']
@@ -110,11 +115,12 @@ admin = flask_admin.Admin(
     'My Dashboard',
     base_template='my_master.html',
     template_mode='bootstrap3',
+    category_icon_classes={'users': 'fa fa-users'}
 )
 
 # Add model views
-admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_value='fa-server', name="Roles"))
-admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users"))
+admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_value='fa-server', name="Roles", category="users"))
+admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users", category="users"))
 admin.add_view(CustomView(name="Custom view", endpoint='custom', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
 
 # define a context processor for merging flask-admin's template context into the
