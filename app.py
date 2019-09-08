@@ -107,7 +107,7 @@ class CustomView(BaseView):
 # Flask views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect('admin/login')
 
 # Create admin
 admin = flask_admin.Admin(
