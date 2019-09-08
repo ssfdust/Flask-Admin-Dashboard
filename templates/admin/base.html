@@ -203,6 +203,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ url_for('static', filename="plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<script src="{{ admin_static.url(filename='vendor/select2/select2.min.js', v='3.5.2') }}" type="text/javascript"></script>
 
 {% if admin_view.extra_js %}
 {% for js_url in admin_view.extra_js %}
