@@ -58,12 +58,12 @@ class MyModelView(sqla.ModelView):
 
     def is_accessible(self):
         if not current_user.is_active or not current_user.is_authenticated:
-            return False
+            return True
 
         if current_user.has_role('superuser'):
             return True
 
-        return False
+        return True
 
     def _handle_view(self, name, **kwargs):
         """
@@ -114,14 +114,14 @@ admin = flask_admin.Admin(
     app,
     'My Dashboard',
     base_template='my_master.html',
-    template_mode='bootstrap3',
+    template_mode='bootstrap4',
     category_icon_classes={'users': 'fa fa-users'}
 )
 
 # Add model views
 admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_value='fa-server', name="Roles", category="users"))
 admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users", category="users"))
-admin.add_view(CustomView(name="Custom view", endpoint='custom', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
+admin.add_view(CustomView(name="Custom view", endpoint='custom', menu_icon_type='glyph', menu_icon_value='fa fa-server',))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.
