@@ -15,7 +15,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                    <h3 class="card-title">Responsive Hover Table</h3>
+                </div>
             {% block model_menu_bar %}
+            <div class="card-body">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a href="javascript:void(0)" class="nav-link active">{{ _gettext('List') }}{% if count %} ({{ count }}){% endif %}</a>
@@ -68,11 +71,10 @@
                     {{ model_layout.filter_form() }}
                     <div class="clearfix"></div>
                 {% endif %}
-                </div>
 
         {% block model_list_table %}
-        <div class="card-body table-responsive p-0">
-        <table class="table table-striped table-bordered table-hover model-list">
+        <div class="table-responsive p-0">
+        <table class="table table-hover model-list">
             <thead>
                 <tr>
                     {% block list_header scoped %}
@@ -181,6 +183,7 @@
         {%- if admin_view.edit_modal or admin_view.create_modal or admin_view.details_modal -%}
             {{ lib.add_modal_window() }}
         {%- endif -%}
+                </div>
             </div>
         </div>
     </div>
